@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="244.0" prefWidth="564.0" stylesheets="@../css/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="apkhelper.MainFXMLController">
+   <children>
+      <SplitMenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="SplitMenuButton">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </SplitMenuButton>
+      <Text fill="#eeeeee" layoutX="8.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type in apk directory or drop apk file here" />
+      <TextField id="apk_text_field" fx:id="apk_text_field" layoutX="8.0" layoutY="204.0" onDragDropped="#apk_text_field_on_drag_dropped" onDragOver="#apk_text_field_on_drag_over" prefHeight="34.0" prefWidth="277.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="279.0" AnchorPane.topAnchor="204.0" />
+   </children>
+</AnchorPane>
