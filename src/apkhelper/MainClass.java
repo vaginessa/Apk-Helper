@@ -25,6 +25,7 @@ public class MainClass extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setTitle("Apk Helper");
         //stage.setMaximized(true);
         stage.show();
     }
