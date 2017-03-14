@@ -35,9 +35,9 @@ public final class SoundPlayer {
     
     public SoundPlayer (String soundName) {
         
-        if(!soundName.startsWith("audio/")){
+        if(!soundName.startsWith("sounds/")){
             // to make sure that the file is in the audio package
-            soundName = ("audio/")+soundName;
+            soundName = ("sounds/")+soundName;
         }
         if(!soundName.endsWith(".wav")){
             // this class only plays .wav files
