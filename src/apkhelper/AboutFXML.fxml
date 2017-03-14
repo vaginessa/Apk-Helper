@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" minWidth="-Infinity" prefHeight="152.0" prefWidth="279.0" stylesheets="@../css/material-fx-v0_3.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="apkhelper.AboutFXMLController">
+   <children>
+      <Text id="node" fx:id="node" layoutX="6.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TranslateTra nsitionBuilderTranslateTransitionBuilderTranslateTransitionBuilderTranslateTransitionBuilder" />
+   </children>
+</AnchorPane>
