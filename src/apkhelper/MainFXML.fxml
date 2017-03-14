@@ -1,31 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="83.0" prefWidth="586.0" stylesheets="@../css/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="apkhelper.MainFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="150.0" prefWidth="586.0" stylesheets="@../css/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="apkhelper.MainFXMLController">
    <children>
       <MenuBar prefHeight="32.0" prefWidth="586.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" onAction="#decompile_menu_item_clicked" text="Decompile" />
+                  <Menu mnemonicParsing="false" text="Compile">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#compile_with_key_clicked" text="With Key" />
+                        <MenuItem mnemonicParsing="false" onAction="#compile_with_out_key_clicked" text="Without Key" />
+                    </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" onAction="#create_sign_key_button_clicked" text="Create Key Store" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#about_menu_clicked" text="About" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
+      <TextField id="apk_text_field" fx:id="apk_text_field" layoutX="14.0" layoutY="106.0" onDragDropped="#apk_text_field_on_drag_dropped" onDragOver="#apk_text_field_on_drag_over" />
+      <Button id="submit_button" fx:id="submit_button" layoutX="508.0" layoutY="96.0" mnemonicParsing="false" onMouseClicked="#submit_button_clicked" text="Button" />
+      <GridPane layoutX="14.0" layoutY="66.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="53.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="147.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text fill="POWDERBLUE" onMouseClicked="#search_button_clicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Search">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="or drag APK/Folder below" wrappingWidth="173.0390625" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>
