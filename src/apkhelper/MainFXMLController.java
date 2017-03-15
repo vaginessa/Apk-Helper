@@ -6,6 +6,7 @@ import apkhelper.utils.SoundPlayer;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,19 +19,27 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class MainFXMLController implements Initializable{
     FileHelper fileHelper = new FileHelper();
-    String option = "Decompile";
     
     @FXML
     private TextField apk_text_field;
     
     @FXML
     private Button submit_button;
+    
+    // "or drag Folder below" text
+    @FXML
+    private Text drag_info_field;
     
     @Override
     public void initialize(URL url, ResourceBundle bundle){
@@ -40,23 +49,7 @@ public class MainFXMLController implements Initializable{
     private void myInit(){
         // place anything here that you want to initialize when
         // the program first open
-        submit_button.setVisible(false);
         
-        // when text is changed (removed, backspace etc)
-        apk_text_field.textProperty().addListener((obs, oldText, newText)->{
-            if((fileHelper.isAPK(newText) && 
-                    option.equals("Decompile"))
-                    
-                    || (fileHelper.isDecompiledApkDir(newText) && 
-                    !option.equals("Decompile"))){
-                
-                
-                submit_button.setVisible(true);
-            }
-            else{
-                submit_button.setVisible(false);
-            }
-        });
     }
     
     @FXML
@@ -99,16 +92,22 @@ public class MainFXMLController implements Initializable{
     void submit_button_clicked(MouseEvent event) {
         SoundPlayer soundPlayer = new SoundPlayer("buttonClick.wav");
         soundPlayer.play();
+        String option = submit_button.getText();
         
         if(option.equals("Decompile")){
+            System.out.println("decompile");
             ScriptRunner.runJar("apktool.jar", "d", apk_text_field.getText());
         }
         else{
             if(option.contains("Compile")){
                 // compile options
+                System.out.println("compile");
                 if(fileHelper.isDecompiledApkDir(apk_text_field.getText())){
                     ScriptRunner.runJar("apktool.jar", "b", 
                             apk_text_field.getText());
+                }
+                else{
+                    System.out.println("Not an extracted apk folder");
                 }
             }
             else{
@@ -119,6 +118,17 @@ public class MainFXMLController implements Initializable{
     
     @FXML
     void search_button_clicked(MouseEvent event) {
+        String option = drag_info_field.getText();
+        
+        if(option.toLowerCase().contains("apk")){
+            chooseFile();
+        }
+        else{
+            chooseDir();
+        }
+    }
+    
+    private void chooseFile(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose APK file");
         fileChooser.getExtensionFilters().addAll
@@ -127,57 +137,62 @@ public class MainFXMLController implements Initializable{
         if(file!=null){
             apk_text_field.setText(file.getAbsolutePath());
         }
-        
-        // directory chooser code
-        //DirectoryChooser directory = new DirectoryChooser();
-        //File f = directory.showDialog(null);
+    }
+    
+    private void chooseDir(){
+        DirectoryChooser directory = new DirectoryChooser();
+        File file = directory.showDialog(null);
+        if(file!=null){
+            apk_text_field.setText(file.getAbsolutePath());
+        }
     }
     
     @FXML
     void compile_with_key_clicked(ActionEvent event) {
-        if(fileHelper.isDecompiledApkDir(apk_text_field.getText())){
-            submit_button.setVisible(true);
-            option = "Compile W key";
-            submit_button.setText("Compile");
-        }
+        submit_button.setText("Compile");
+        drag_info_field.setText("or drag Folder below");
         
     }
 
     @FXML
-    void compile_with_out_key_clicked(ActionEvent event) {
-        if(fileHelper.isDecompiledApkDir(apk_text_field.getText())){
-            submit_button.setVisible(true);
-            option = "Compile W/O key";
-            submit_button.setText("Compile");
-        }
-    }
-
-    @FXML
-    void create_sign_key_button_clicked(MouseEvent event) {
-        if(fileHelper.isDecompiledApkDir(apk_text_field.getText())){
-            submit_button.setVisible(true);
-            option = "Create Key";
-            submit_button.setText("Create Key");
+    void create_sign_key_button_clicked(ActionEvent event) {
+        //submit_button.setText("Create Key");
+        // create sign key form here
+        
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().
+                    getResource("KeyStoreFXML.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Key Store");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch(java.io.IOException ex){
+            System.out.println(ex.toString());
         }
     }
 
     @FXML
     void decompile_menu_item_clicked(ActionEvent event) {
-        System.out.println("decompile");
-        option = "Decompile";
         submit_button.setText("Decompile");
+        drag_info_field.setText("or drag APK below");
     }
     
     @FXML
     void about_menu_clicked(ActionEvent event) {
          try{
+             
+            // open controller that holds About.fxml
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AboutFXML.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
+            Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-            //stage.initModality(Modality.APPLICATION_MODAL);
-            //stage.initStyle(StageStyle.UNDECORATED);
-            stage.setTitle("ABC");
-            stage.setScene(new Scene(root1));  
+            stage.setTitle("About");
+            stage.setScene(new Scene(root));  
+            stage.setOnHiding((WindowEvent ev) -> {
+                Platform.runLater(() -> {
+                    AboutFXMLController.TIMELINE.stop();
+                });
+            });
             stage.show();
           }catch(Exception e){
               System.out.println("==== "+e.toString());
