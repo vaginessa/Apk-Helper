@@ -24,15 +24,13 @@ import javafx.util.Duration;
  * @author Oscar (AKA Bittle)
  */
 public class AboutFXMLController implements Initializable {
-    
-    
-    
+    public static final Timeline TIMELINE = new Timeline();
     @FXML
     private Pane pane;
     
     @FXML
     private Text text;
-        
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -44,8 +42,7 @@ public class AboutFXMLController implements Initializable {
         text.setText("hey2\nhey3\nhey\nhey\nhey\nhey\nhey\nhey"
                 + "\nhey\nhey\nhey\nhey\nhey\nhey\nhey\nhey\nhey\nhey"
                 + "\nhey\nhey\nhey\nhey");
-
-        Timeline timeline = new Timeline();
+        
         final double ORIGIN_Y = text.getY();
         // Duration.seconds params: The bigger the number, the slower
         KeyFrame updateFrame = new KeyFrame(Duration.seconds(3 / 60d), (ActionEvent event) -> {
@@ -54,14 +51,14 @@ public class AboutFXMLController implements Initializable {
             double layoutY = text.getLayoutY();
             
             if (tH <= pH) {
-                // stop, if the pane is large enough and the position is correct
+                // stop, if the pane is large enough dont scroll
                 text.setLayoutY(ORIGIN_Y);
-                timeline.stop();
+                TIMELINE.stop();
             } else {
                 System.out.println("tH = "+tH+", pH = "+pH+","
-                    + " LayoutY = "+layoutY+"\n");
+                        + " LayoutY = "+layoutY+"\n");
                 
-                if (Math.abs(layoutY)+100 >= tH) {
+                if (Math.abs(layoutY)+110 >= tH) {
                     //bounds are reached
                     layoutY = ORIGIN_Y;
                 }
@@ -71,19 +68,18 @@ public class AboutFXMLController implements Initializable {
                 text.setLayoutY(layoutY);
             }
             
-            
         });
         
-        timeline.getKeyFrames().add(updateFrame);
-        timeline.setCycleCount(Animation.INDEFINITE);
+        TIMELINE.getKeyFrames().add(updateFrame);
+        TIMELINE.setCycleCount(Animation.INDEFINITE);
         
         // listen to bound changes of the elements to start/stop the animation
         InvalidationListener listener = o -> {
             double textHeight = text.getLayoutBounds().getHeight();
             double paneHeight = pane.getHeight();
             if (textHeight > paneHeight
-                    && timeline.getStatus() != Animation.Status.RUNNING) {
-                timeline.play();
+                    && TIMELINE.getStatus() != Animation.Status.RUNNING) {
+                TIMELINE.play();
             }
         };
         
