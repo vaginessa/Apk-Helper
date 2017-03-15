@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="152.0" prefWidth="279.0" stylesheets="@../css/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="apkhelper.AboutFXMLController">
+   <children>
+      <Pane id="pane" fx:id="pane" layoutX="7.0" layoutY="33.0" prefHeight="113.0" prefWidth="116.0">
+         <children>
+            <Text id="text" fx:id="text" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text here" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

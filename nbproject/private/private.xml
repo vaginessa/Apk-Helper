@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/oscartorres/NetBeansProjects/ApkHelper/src/apkhelper/MainClass.java</file>
-            <file>file:/Users/oscartorres/NetBeansProjects/ApkHelper/src/apkhelper/mainFXML.fxml</file>
-            <file>file:/Users/oscartorres/NetBeansProjects/ApkHelper/src/apkhelper/MainFXMLController.java</file>
+            <file>file:/Users/oscartorres/NetBeansProjects/Apk-Helper/src/apkhelper/AboutFXML.fxml</file>
+            <file>file:/Users/oscartorres/NetBeansProjects/Apk-Helper/src/apkhelper/KeyStoreFXMLController.java</file>
+            <file>file:/Users/oscartorres/NetBeansProjects/Apk-Helper/src/apkhelper/MainFXMLController.java</file>
+            <file>file:/Users/oscartorres/NetBeansProjects/Apk-Helper/src/apkhelper/AboutFXMLController.java</file>
+            <file>file:/Users/oscartorres/NetBeansProjects/Apk-Helper/src/apkhelper/MainClass.java</file>
+            <file>file:/Users/oscartorres/NetBeansProjects/Apk-Helper/src/apkhelper/KeyStoreFXML.fxml</file>
         </group>
     </open-files>
 </project-private>
